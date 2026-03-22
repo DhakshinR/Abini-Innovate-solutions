@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Detail | ABINI.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #c9a227;
+            --dark: #0d0d0d;
+            --dark-soft: #1a1a1a;
+            --light: #f5f5f0;
+            --silver: #a8a8a8;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            color: var(--light);
+            background: var(--dark);
+            min-height: 100vh;
+        }
+
+        .page-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 2rem;
+            background: rgba(13, 13, 13, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: gap 0.3s ease;
+        }
+
+        .back-link:hover { gap: 0.75rem; }
+
+        .logo-link {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--light);
+        }
+
+        .logo-link img {
+            height: 36px;
+            width: auto;
+            max-width: 180px;
+            object-fit: contain;
+            object-position: left center;
+            display: block;
+        }
+
+        .hero {
+            padding: 8rem 2rem 4rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .hero__num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            color: var(--primary);
+            opacity: 0.4;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero__title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            letter-spacing: 0.06em;
+            margin-bottom: 2rem;
+        }
+
+        .hero__image-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 21/9;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.08);
+            margin-bottom: 3rem;
+        }
+
+        .hero__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .content__desc {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: var(--silver);
+            margin-bottom: 2rem;
+        }
+
+        .content__desc p {
+            margin-bottom: 1.25rem;
+        }
+
+        .content__section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 0.1em;
+            color: var(--primary);
+            margin: 2.5rem 0 1rem;
+        }
+
+        .content__list {
+            list-style: none;
+        }
+
+        .content__list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.9rem;
+            font-size: 1rem;
+            color: var(--silver);
+            line-height: 1.6;
+        }
+
+        .content__list li::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            flex-shrink: 0;
+            margin-top: 0.6rem;
+        }
+
+        /* Animated structural diagram area */
+        .diagram-area {
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .diagram {
+            position: relative;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 8px;
+            padding: 2.5rem;
+            min-height: 280px;
+            overflow: hidden;
+        }
+
+        .diagram__title {
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        /* CAE - Animated roadmap workflow */
+        .diagram-cae-roadmap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            padding: 1rem 0;
+        }
+
+        .diagram-cae__step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 1.25rem;
+            background: rgba(201,162,39,0.08);
+            border: 2px solid rgba(201,162,39,0.35);
+            border-radius: 8px;
+            min-width: 100px;
+            animation: step-highlight 3s ease-in-out infinite;
+        }
+
+        .diagram-cae__step:nth-child(2) { animation-delay: 0.5s; }
+        .diagram-cae__step:nth-child(3) { animation-delay: 1s; }
+        .diagram-cae__step:nth-child(4) { animation-delay: 1.5s; }
+
+        .diagram-cae__step-num {
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            color: var(--dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .diagram-cae__step-label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .diagram-cae__arrow {
+            color: var(--primary);
+            font-size: 1.5rem;
+            opacity: 0.7;
+            animation: arrow-pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes step-highlight {
+            0%, 100% { box-shadow: 0 0 0 rgba(201,162,39,0); }
+            50% { box-shadow: 0 0 25px rgba(201,162,39,0.25); }
+        }
+
+        @keyframes arrow-pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* FEA - Triangular mesh (actual FEA representation) */
+        .diagram-fea-svg {
+            width: 100%;
+            max-height: 220px;
+        }
+
+        .diagram-fea-svg polygon {
+            fill: rgba(201,162,39,0.1);
+            stroke: rgba(201,162,39,0.4);
+            stroke-width: 1;
+            transition: fill 0.3s;
+            animation: fea-mesh-pulse 2.5s ease-in-out infinite;
+        }
+
+        .diagram-fea-svg polygon:nth-child(odd) { animation-delay: 0.3s; }
+        .diagram-fea-svg polygon:nth-child(3n) { animation-delay: 0.6s; }
+
+        @keyframes fea-mesh-pulse {
+            0%, 100% { fill: rgba(201,162,39,0.08); }
+            50% { fill: rgba(201,162,39,0.18); }
+        }
+
+        /* Interior - Car cabin zones pictorial */
+        .diagram-interior {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .diagram-interior__zone {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(201,162,39,0.06);
+            border: 1px solid rgba(201,162,39,0.25);
+            border-radius: 8px;
+            animation: zone-glow 4s ease-in-out infinite;
+        }
+
+        .diagram-interior__zone:nth-child(2) { animation-delay: 0.5s; }
+        .diagram-interior__zone:nth-child(3) { animation-delay: 1s; }
+        .diagram-interior__zone:nth-child(4) { animation-delay: 1.5s; }
+
+        .diagram-interior__icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(201,162,39,0.15);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .diagram-interior__label { font-size: 0.95rem; font-weight: 500; }
+        .diagram-interior__desc { font-size: 0.75rem; color: var(--silver); margin-top: 0.2rem; }
+
+        @keyframes zone-glow {
+            0%, 100% { border-color: rgba(201,162,39,0.25); }
+            50% { border-color: rgba(201,162,39,0.5); }
+        }
+
+        /* Exterior - Car body segments */
+        .diagram-exterior-svg {
+            width: 100%;
+            max-height: 180px;
+        }
+
+        .diagram-exterior-svg .car-body { fill: none; stroke: rgba(201,162,39,0.5); stroke-width: 2; }
+        .diagram-exterior-svg .segment { fill: rgba(201,162,39,0.1); stroke: rgba(201,162,39,0.4); transition: fill 0.3s; }
+        .diagram-exterior-svg .segment:hover { fill: rgba(201,162,39,0.25); }
+        .diagram-exterior-svg .segment-label { font-size: 10px; fill: var(--primary); text-anchor: middle; }
+        .diagram-exterior-svg .segment { animation: segment-highlight 3s ease-in-out infinite; }
+        .diagram-exterior-svg .seg2 { animation-delay: 0.5s; }
+        .diagram-exterior-svg .seg3 { animation-delay: 1s; }
+        .diagram-exterior-svg .seg4 { animation-delay: 1.5s; }
+        .diagram-exterior-svg .seg5 { animation-delay: 2s; }
+
+        @keyframes segment-highlight {
+            0%, 100% { fill: rgba(201,162,39,0.1); }
+            50% { fill: rgba(201,162,39,0.2); }
+        }
+
+        .diagram-exterior-legend {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .diagram-exterior-legend span {
+            font-size: 0.8rem;
+            color: var(--silver);
+        }
+
+        /* Full vehicle - Integration pictorial */
+        .diagram-integration {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            padding: 2rem;
+        }
+
+        .diagram-integration__item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.5rem 2rem;
+            background: rgba(201,162,39,0.06);
+            border: 2px solid rgba(201,162,39,0.25);
+            border-radius: 12px;
+            min-width: 120px;
+            animation: int-glow 4s ease-in-out infinite;
+        }
+
+        .diagram-integration__item:nth-child(2) { animation-delay: 0.6s; }
+        .diagram-integration__item:nth-child(3) { animation-delay: 1.2s; }
+
+        .diagram-integration__icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(201,162,39,0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+        }
+
+        .diagram-integration__label { font-size: 0.95rem; font-weight: 600; }
+        .diagram-integration__desc { font-size: 0.75rem; color: var(--silver); text-align: center; }
+
+        @keyframes int-glow {
+            0%, 100% { box-shadow: 0 0 0 rgba(201,162,39,0); }
+            50% { box-shadow: 0 0 30px rgba(201,162,39,0.15); }
+        }
+
+        /* Seating - Seat structure pictorial */
+        .diagram-seating {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 1.5rem;
+            padding: 2rem;
+        }
+
+        .diagram-seating__part {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .diagram-seating__shape {
+            background: linear-gradient(180deg, rgba(201,162,39,0.2) 0%, rgba(201,162,39,0.06) 100%);
+            border: 2px solid rgba(201,162,39,0.4);
+            border-radius: 4px;
+            animation: seat-pulse 2.5s ease-in-out infinite;
+        }
+
+        .diagram-seating__part:nth-child(1) .diagram-seating__shape { width: 70px; height: 50px; }
+        .diagram-seating__part:nth-child(2) .diagram-seating__shape { width: 90px; height: 120px; animation-delay: 0.3s; }
+        .diagram-seating__part:nth-child(3) .diagram-seating__shape { width: 100px; height: 80px; animation-delay: 0.6s; }
+        .diagram-seating__part:nth-child(4) .diagram-seating__shape { width: 90px; height: 25px; animation-delay: 0.9s; }
+
+        .diagram-seating__label { font-size: 0.8rem; font-weight: 500; }
+
+        @keyframes seat-pulse {
+            0%, 100% { opacity: 0.9; }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+
+        /* Staffing/Consulting - Full labels with icons */
+        .diagram-pillars {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .diagram-pillars__item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background: rgba(201,162,39,0.06);
+            border: 1px solid rgba(201,162,39,0.25);
+            border-radius: 10px;
+            animation: pillar-pulse 3s ease-in-out infinite;
+        }
+
+        .diagram-pillars__item:nth-child(2) { animation-delay: 0.4s; }
+        .diagram-pillars__item:nth-child(3) { animation-delay: 0.8s; }
+        .diagram-pillars__item:nth-child(4) { animation-delay: 1.2s; }
+
+        .diagram-pillars__icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(201,162,39,0.15);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .diagram-pillars__label { font-size: 0.95rem; font-weight: 600; }
+        .diagram-pillars__desc { font-size: 0.75rem; color: var(--silver); margin-top: 0.15rem; }
+
+        @keyframes pillar-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        /* Page load animation */
+        .hero__num, .hero__title, .hero__image-wrap, .content__desc, .content__section-title, .diagram {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .page-loaded .hero__num {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s var(--ease-out-expo) 0.1s, transform 0.6s var(--ease-out-expo) 0.1s;
+        }
+
+        .page-loaded .hero__title {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s var(--ease-out-expo) 0.2s, transform 0.6s var(--ease-out-expo) 0.2s;
+        }
+
+        .page-loaded .hero__image-wrap {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s var(--ease-out-expo) 0.3s, transform 0.6s var(--ease-out-expo) 0.3s;
+        }
+
+        .page-loaded .content__desc {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s var(--ease-out-expo) 0.4s, transform 0.6s var(--ease-out-expo) 0.4s;
+        }
+
+        .page-loaded .content__section-title {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s var(--ease-out-expo) 0.5s, transform 0.6s var(--ease-out-expo) 0.5s;
+        }
+
+        .page-loaded .diagram {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s var(--ease-out-expo) 0.6s, transform 0.6s var(--ease-out-expo) 0.6s;
+        }
+
+        @media (max-width: 900px) {
+            .page-header {
+                padding: 1rem max(1.25rem, env(safe-area-inset-right)) 1rem max(1.25rem, env(safe-area-inset-left));
+                padding-top: max(1rem, env(safe-area-inset-top));
+                flex-wrap: wrap;
+                gap: 0.75rem;
+            }
+
+            .back-link {
+                font-size: 0.78rem;
+                letter-spacing: 0.08em;
+            }
+
+            .logo-link img {
+                height: 32px;
+                max-width: min(160px, 45vw);
+            }
+
+            .hero {
+                padding: 5.5rem max(1.25rem, env(safe-area-inset-right)) 3rem max(1.25rem, env(safe-area-inset-left));
+                padding-top: max(5.5rem, calc(env(safe-area-inset-top) + 4rem));
+            }
+
+            .hero__num {
+                font-size: 3rem;
+            }
+
+            .hero__image-wrap {
+                aspect-ratio: 16 / 10;
+            }
+
+            .diagram-area {
+                margin: 2rem auto;
+                padding: 0 max(1rem, env(safe-area-inset-left)) 0 max(1rem, env(safe-area-inset-right));
+            }
+
+            .diagram {
+                padding: 1.5rem 1.25rem;
+                min-height: 0;
+            }
+
+            .diagram-cae-roadmap {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .diagram-cae__arrow {
+                transform: rotate(90deg);
+            }
+
+            .diagram-integration {
+                flex-direction: column;
+                padding: 1.25rem;
+                gap: 1rem;
+            }
+
+            .diagram-seating {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+                padding: 1.25rem;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .page-header {
+                justify-content: space-between;
+            }
+
+            .back-link {
+                flex: 1;
+                min-width: 0;
+            }
+
+            .content {
+                padding: 0 max(1rem, env(safe-area-inset-left)) max(3rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-right));
+            }
+
+            .content__desc {
+                font-size: 0.98rem;
+            }
+
+            .content__section-title {
+                font-size: 1.35rem;
+            }
+
+            .diagram-interior {
+                grid-template-columns: 1fr;
+            }
+
+            .diagram-pillars {
+                grid-template-columns: 1fr;
+            }
+
+            .diagram-fea-svg {
+                max-height: 160px;
+            }
+
+            .diagram-exterior-svg {
+                max-height: 140px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <a href="index.html#services" class="back-link">← Back to Services</a>
+        <a href="index.html" class="logo-link"><img src="abini_logo.png" alt="ABINI" width="160" height="36"></a>
+    </header>
+
+    <main>
+        <section class="hero" id="heroContent">
+            <!-- Content injected by JS -->
+        </section>
+
+        <div class="content" id="contentArea">
+            <!-- Content injected by JS -->
+        </div>
+
+        <div class="diagram-area" id="diagramArea">
+            <!-- Diagram injected by JS -->
+        </div>
+    </main>
+
+    <script>
+        const serviceData = {
+            1: {
+                image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200&q=90',
+                num: '01',
+                title: 'Computer Aided Engineering',
+                desc: `
+                    <p>Computer Aided Engineering (CAE) is the use of software tools to support engineering analysis, design validation, and digital prototyping throughout the automotive development lifecycle. At ABINI, we employ industry-standard CAE tools—including CATIA, Siemens NX, PTC Creo, and SolidWorks—to create accurate 3D models, digital mock-ups (DMU), and production-ready CAD data.</p>
+                    <p>Our CAE services enable virtual validation before physical prototyping, reducing development cost and cycle time. We deliver detailed part and assembly models with proper GD&T (Geometric Dimensioning and Tolerancing), BOM management, and design-for-manufacturing considerations aligned with ISO 1101 and ASME Y14.5 standards. From concept to production release, our CAE workflows integrate seamlessly with OEM and Tier 1 PLM systems.</p>
+                `,
+                listTitle: 'Capabilities & Deliverables',
+                list: [
+                    '3D CAD modelling (part, assembly, surfacing)',
+                    'Digital Mock-Up (DMU) and packaging studies',
+                    'GD&T documentation and tolerance stack-up analysis',
+                    'Design change management and revision control',
+                    'Integration with PLM/PDM systems (Teamcenter, Windchill)',
+                    'Design-for-manufacturing (DFM) and DFMA support'
+                ],
+                diagram: 'cae'
+            },
+            2: {
+                image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=90',
+                num: '02',
+                title: 'FEA - Virtual Simulation',
+                desc: `
+                    <p>Finite Element Analysis (FEA) and virtual simulation enable engineers to predict structural behaviour, crash performance, NVH characteristics, and durability—all before physical testing. We utilise leading solvers including LS-DYNA, Abaqus, Nastran, and HyperWorks to perform linear and non-linear structural analysis, crash simulation, modal analysis, and fatigue life prediction.</p>
+                    <p>Our FEA deliverables support compliance with Euro NCAP, IIHS, FMVSS, and regional safety regulations. We perform full vehicle crash simulation, body-in-white (BIW) structural analysis, and component-level validation. Virtual testing significantly reduces prototype iterations and accelerates time-to-market while ensuring designs meet OEM targets for stiffness, weight, and safety.</p>
+                `,
+                listTitle: 'Simulation Capabilities',
+                list: [
+                    'Structural FEA (linear static, modal, buckling)',
+                    'Crash and impact simulation (explicit dynamics)',
+                    'NVH analysis (modal, frequency response, transfer path)',
+                    'Durability and fatigue life prediction',
+                    'CFD for thermal and aerodynamic analysis',
+                    'Optimisation (topology, size, shape)'
+                ],
+                diagram: 'fea'
+            },
+            3: {
+                image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&q=90',
+                num: '03',
+                title: 'Automotive Interiors',
+                desc: `
+                    <p>Automotive interior design and engineering encompasses the vehicle cabin—instrument panel (IP), center console, door trim, headliner, seats, and human-machine interface (HMI). We develop interiors that balance aesthetics, ergonomics, safety, and manufacturability. Our work adheres to SAE J1100 packaging standards, FMVSS 111 (rear visibility), and airbag integration requirements.</p>
+                    <p>We deliver Class A surfacing for visible trim, material specifications (soft trim, hard plastics, leather, sustainable alternatives), and detailed engineering for mechanisms and attachments. Occupant packaging studies ensure adequate headroom, legroom, and visibility per OEM targets. Our interiors meet flammability (FMVSS 302), head impact (FMVSS 201), and interior occupant protection requirements.</p>
+                `,
+                listTitle: 'Interior Engineering Scope',
+                list: [
+                    'Instrument panel (IP) and center console design',
+                    'Door trim, headliner, and pillar trim',
+                    'Ergonomics and occupant packaging (SAE J1100)',
+                    'HMI and display integration',
+                    'Materials specification and sustainability',
+                    'Airbag and safety system integration (FMVSS 201, 208)'
+                ],
+                diagram: 'layers'
+            },
+            4: {
+                image: 'https://images.unsplash.com/photo-1542362567-b07e54358753?w=1200&q=90',
+                num: '04',
+                title: 'Automotive Exteriors',
+                desc: `
+                    <p>Exterior design and engineering covers all visible outer surfaces—body panels, closures (doors, hood, decklid), lighting, grille, bumpers, and aerodynamic elements. We deliver Class A surfacing that meets OEM gap-and-flush requirements, and we engineer closures for stiffness, NVH, and sealing performance. Exterior development includes aerodynamic optimisation to achieve target drag coefficient (Cd) and cooling airflow.</p>
+                    <p>Our exterior work complies with FMVSS 108 (lighting), pedestrian protection (Euro NCAP, GTR 9), and regional homologation requirements. We integrate with body-in-white (BIW) and closure systems to ensure manufacturability, durability, and aesthetic quality. From concept sketch to production release, we manage the full exterior development process.</p>
+                `,
+                listTitle: 'Exterior Engineering Scope',
+                list: [
+                    'Body panels and Class A surfacing',
+                    'Closures (doors, hood, decklid) design and kinematics',
+                    'Lighting systems (FMVSS 108 compliance)',
+                    'Grille, bumper, and fascia',
+                    'Aerodynamics and drag reduction',
+                    'Gap-and-flush, and DTS management'
+                ],
+                diagram: 'vehicle'
+            },
+            5: {
+                image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1200&q=90',
+                num: '05',
+                title: 'Automotive Full Vehicle',
+                desc: `
+                    <p>Full vehicle development involves the integration of all systems—interior, exterior, chassis, powertrain, electrical/electronic, and body—into a cohesive, manufacturable product. We support OEMs and Tier 1s with vehicle architecture, packaging, systems integration, and validation. Our full vehicle work includes vehicle dynamics targets, crash performance, homologation support, and programme management.</p>
+                    <p>We perform packaging studies to optimise passenger space, cargo volume, and powertrain placement. Full vehicle programmes require coordination across multiple domains; we ensure design compatibility, weight targets, and cost objectives are met. Our deliverables support the complete vehicle development process from concept approval to series production and launch.</p>
+                `,
+                listTitle: 'Full Vehicle Capabilities',
+                list: [
+                    'Vehicle architecture and packaging',
+                    'Systems integration (interior, exterior, chassis, powertrain)',
+                    'Crash performance and safety validation',
+                    'Vehicle dynamics and ride-handling targets',
+                    'Homologation and regulatory support',
+                    'Programme management and milestone delivery'
+                ],
+                diagram: 'integration'
+            },
+            6: {
+                image: 'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=1200&q=90',
+                num: '06',
+                title: 'Automotive Seating',
+                desc: `
+                    <p>Automotive seating design and engineering covers seat structure, cushion, trim, mechanisms (slide, recline, height adjustment), head restraint, and integrated safety systems. Seats must meet stringent requirements for comfort, ergonomics, crash safety, and durability. We design seats in compliance with FMVSS 202 (head restraint), FMVSS 207/210 (seat and anchorage), ECE R17, and whiplash protection (Euro NCAP).</p>
+                    <p>Our seating engineering includes foam comfort tuning, pressure distribution analysis, and trim attachment design. We integrate side airbags, seatbelt anchorage, and child seat fixtures (ISOFIX) per regulatory requirements. Seat mechanisms are validated for cycle life, load capacity, and misuse conditions. Materials selection considers flammability (FMVSS 302), recyclability, and sustainability targets.</p>
+                `,
+                listTitle: 'Seating Engineering Scope',
+                list: [
+                    'Seat structure (frame, recliner, adjusters)',
+                    'Foam cushion and comfort tuning',
+                    'Trim design and attachment',
+                    'Head restraint and whiplash protection (ECE R17)',
+                    'Seatbelt and ISOFIX integration',
+                    'Side airbag and occupant protection'
+                ],
+                diagram: 'seating'
+            },
+            7: {
+                image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=90',
+                num: '07',
+                title: 'Staffing',
+                desc: `
+                    <p>ABINI provides skilled workforce solutions for automotive OEMs, Tier 1 suppliers, and engineering service providers. We supply contract and project-based engineers, designers, and technicians with proven experience in vehicle development, CAE, manufacturing, and quality. Our staffing model offers flexibility to scale teams according to programme needs—from concept to series launch.</p>
+                    <p>We place professionals across disciplines: body-in-white, interiors, exteriors, chassis, powertrain, electrical, and program management. Our candidates are vetted for technical competency, tool proficiency (CATIA, NX, Creo, etc.), and familiarity with automotive standards including IATF 16949. We support both on-site and remote engagements, enabling clients to meet peak demand without long-term commitment.</p>
+                `,
+                listTitle: 'Staffing Offerings',
+                list: [
+                    'Design engineers (body, interior, exterior)',
+                    'CAE and simulation engineers',
+                    'Manufacturing and process engineers',
+                    'Project and program managers',
+                    'Flexible engagement (contract, project, direct)',
+                    'On-site and remote placements'
+                ],
+                diagram: 'nodes'
+            },
+            8: {
+                image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&q=90',
+                num: '08',
+                title: 'Consulting',
+                desc: `
+                    <p>Our consulting services provide strategic and technical advisory to automotive clients. We support process improvement, technology selection, programme management, supplier evaluation, and quality systems. Our consultants bring decades of industry experience and help clients navigate complex decisions—from platform strategy to cost reduction and launch readiness.</p>
+                    <p>We advise on IATF 16949 compliance, APQP (Advanced Product Quality Planning), and PPAP (Production Part Approval Process). Consulting engagements include VAVE (Value Analysis/Value Engineering), make-vs-buy analysis, and market entry strategy. We work with start-ups, established OEMs, and suppliers to optimise operations and accelerate time-to-market.</p>
+                `,
+                listTitle: 'Consulting Services',
+                list: [
+                    'Process improvement and best practices',
+                    'Technology and tool selection',
+                    'Programme and project management',
+                    'Supplier evaluation and development',
+                    'IATF 16949 and quality systems',
+                    'VAVE and cost optimisation'
+                ],
+                diagram: 'nodes'
+            }
+        };
+
+        const params = new URLSearchParams(window.location.search);
+        const id = parseInt(params.get('id') || '1', 10);
+        const data = serviceData[Math.min(Math.max(id, 1), 8)] || serviceData[1];
+
+        document.title = `${data.title} | ABINI.`;
+
+        document.getElementById('heroContent').innerHTML = `
+            <span class="hero__num">${data.num}</span>
+            <h1 class="hero__title">${data.title}</h1>
+            <div class="hero__image-wrap">
+                <img src="${data.image}" alt="${data.title}" class="hero__image">
+            </div>
+        `;
+
+        document.getElementById('contentArea').innerHTML = `
+            <div class="content__desc">${data.desc}</div>
+            <h3 class="content__section-title">${data.listTitle}</h3>
+            <ul class="content__list">
+                ${data.list.map(item => `<li>${item}</li>`).join('')}
+            </ul>
+        `;
+
+        const diagramHTML = {
+            cae: `<div class="diagram">
+                <p class="diagram__title">CAE Workflow — Step-by-Step Process</p>
+                <div class="diagram-cae-roadmap">
+                    <div class="diagram-cae__step">
+                        <span class="diagram-cae__step-num">1</span>
+                        <span class="diagram-cae__step-label">CAD Model</span>
+                    </div>
+                    <span class="diagram-cae__arrow">→</span>
+                    <div class="diagram-cae__step">
+                        <span class="diagram-cae__step-num">2</span>
+                        <span class="diagram-cae__step-label">DMU Check</span>
+                    </div>
+                    <span class="diagram-cae__arrow">→</span>
+                    <div class="diagram-cae__step">
+                        <span class="diagram-cae__step-num">3</span>
+                        <span class="diagram-cae__step-label">Simulation</span>
+                    </div>
+                    <span class="diagram-cae__arrow">→</span>
+                    <div class="diagram-cae__step">
+                        <span class="diagram-cae__step-num">4</span>
+                        <span class="diagram-cae__step-label">Release</span>
+                    </div>
+                </div>
+            </div>`,
+            fea: `<div class="diagram">
+                <p class="diagram__title">FEA Mesh — Structural Discretization (Triangular Elements)</p>
+                <svg class="diagram-fea-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="50,20 100,20 75,60" />
+                    <polygon points="100,20 150,20 125,60" />
+                    <polygon points="75,60 125,60 100,100" />
+                    <polygon points="50,20 75,60 50,100" />
+                    <polygon points="75,60 50,100 100,100" />
+                    <polygon points="100,100 125,60 150,100" />
+                    <polygon points="125,60 175,60 150,100" />
+                    <polygon points="150,20 200,20 175,60" />
+                    <polygon points="200,20 250,20 225,60" />
+                    <polygon points="175,60 225,60 200,100" />
+                    <polygon points="150,100 175,60 200,100" />
+                    <polygon points="200,100 225,60 250,100" />
+                    <polygon points="250,20 300,20 275,60" />
+                    <polygon points="300,20 350,20 325,60" />
+                    <polygon points="275,60 325,60 300,100" />
+                    <polygon points="250,100 275,60 300,100" />
+                    <polygon points="100,100 50,100 75,140" />
+                    <polygon points="100,100 75,140 125,140" />
+                    <polygon points="200,100 175,140 225,140" />
+                    <polygon points="300,100 275,140 325,140" />
+                </svg>
+            </div>`,
+            layers: `<div class="diagram">
+                <p class="diagram__title">Interior Components — Cabin Zones</p>
+                <div class="diagram-interior">
+                    <div class="diagram-interior__zone">
+                        <div class="diagram-interior__icon">📐</div>
+                        <div>
+                            <div class="diagram-interior__label">Instrument Panel (IP)</div>
+                            <div class="diagram-interior__desc">Dashboard & gauges</div>
+                        </div>
+                    </div>
+                    <div class="diagram-interior__zone">
+                        <div class="diagram-interior__icon">🧩</div>
+                        <div>
+                            <div class="diagram-interior__label">Trim</div>
+                            <div class="diagram-interior__desc">Door, pillar, headliner</div>
+                        </div>
+                    </div>
+                    <div class="diagram-interior__zone">
+                        <div class="diagram-interior__icon">🖥</div>
+                        <div>
+                            <div class="diagram-interior__label">HMI</div>
+                            <div class="diagram-interior__desc">Display & controls</div>
+                        </div>
+                    </div>
+                    <div class="diagram-interior__zone">
+                        <div class="diagram-interior__icon">🛡</div>
+                        <div>
+                            <div class="diagram-interior__label">Safety</div>
+                            <div class="diagram-interior__desc">Airbag, restraint</div>
+                        </div>
+                    </div>
+                </div>
+            </div>`,
+            vehicle: `<div class="diagram">
+                <p class="diagram__title">Exterior Body Segments</p>
+                <svg class="diagram-exterior-svg" viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">
+                    <path class="car-body" d="M30 80 L80 80 L100 50 L150 50 L180 70 L250 70 L280 50 L330 50 L370 70 L370 90 L30 90 Z" />
+                    <rect class="segment seg1" x="80" y="55" width="50" height="25" rx="3" />
+                    <rect class="segment seg2" x="130" y="55" width="60" height="18" rx="3" />
+                    <rect class="segment seg3" x="190" y="55" width="70" height="18" rx="3" />
+                    <rect class="segment seg4" x="260" y="55" width="60" height="18" rx="3" />
+                    <rect class="segment seg5" x="320" y="60" width="45" height="22" rx="3" />
+                    <text class="segment-label" x="105" y="72">Hood</text>
+                    <text class="segment-label" x="160" y="68">Door</text>
+                    <text class="segment-label" x="225" y="68">Roof</text>
+                    <text class="segment-label" x="290" y="68">Door</text>
+                    <text class="segment-label" x="342" y="78">Deck</text>
+                </svg>
+                <div class="diagram-exterior-legend">
+                    <span>Hood</span><span>Door</span><span>Roof</span><span>Trunk/Deck</span>
+                </div>
+            </div>`,
+            integration: `<div class="diagram">
+                <p class="diagram__title">Full Vehicle — Integrated Systems</p>
+                <div class="diagram-integration">
+                    <div class="diagram-integration__item">
+                        <div class="diagram-integration__icon">🪑</div>
+                        <span class="diagram-integration__label">Interior</span>
+                        <span class="diagram-integration__desc">Cabin, seating, trim</span>
+                    </div>
+                    <div class="diagram-integration__item">
+                        <div class="diagram-integration__icon">🚗</div>
+                        <span class="diagram-integration__label">Exterior</span>
+                        <span class="diagram-integration__desc">Body, closures, lighting</span>
+                    </div>
+                    <div class="diagram-integration__item">
+                        <div class="diagram-integration__icon">⚙️</div>
+                        <span class="diagram-integration__label">Systems</span>
+                        <span class="diagram-integration__desc">Chassis, powertrain, EE</span>
+                    </div>
+                </div>
+            </div>`,
+            seating: `<div class="diagram">
+                <p class="diagram__title">Seat Structure — Key Components</p>
+                <div class="diagram-seating">
+                    <div class="diagram-seating__part">
+                        <div class="diagram-seating__shape"></div>
+                        <span class="diagram-seating__label">Head Restraint</span>
+                    </div>
+                    <div class="diagram-seating__part">
+                        <div class="diagram-seating__shape"></div>
+                        <span class="diagram-seating__label">Backrest</span>
+                    </div>
+                    <div class="diagram-seating__part">
+                        <div class="diagram-seating__shape"></div>
+                        <span class="diagram-seating__label">Cushion</span>
+                    </div>
+                    <div class="diagram-seating__part">
+                        <div class="diagram-seating__shape"></div>
+                        <span class="diagram-seating__label">Base / Rails</span>
+                    </div>
+                </div>
+            </div>`,
+            nodes: `<div class="diagram">
+                <p class="diagram__title">Service Pillars</p>
+                <div class="diagram-pillars">
+                    <div class="diagram-pillars__item">
+                        <div class="diagram-pillars__icon">📋</div>
+                        <div>
+                            <div class="diagram-pillars__label">Strategy</div>
+                            <div class="diagram-pillars__desc">Planning & approach</div>
+                        </div>
+                    </div>
+                    <div class="diagram-pillars__item">
+                        <div class="diagram-pillars__icon">⚙️</div>
+                        <div>
+                            <div class="diagram-pillars__label">Process</div>
+                            <div class="diagram-pillars__desc">Methods & workflow</div>
+                        </div>
+                    </div>
+                    <div class="diagram-pillars__item">
+                        <div class="diagram-pillars__icon">✓</div>
+                        <div>
+                            <div class="diagram-pillars__label">Quality</div>
+                            <div class="diagram-pillars__desc">Standards & validation</div>
+                        </div>
+                    </div>
+                    <div class="diagram-pillars__item">
+                        <div class="diagram-pillars__icon">🚀</div>
+                        <div>
+                            <div class="diagram-pillars__label">Delivery</div>
+                            <div class="diagram-pillars__desc">On-time execution</div>
+                        </div>
+                    </div>
+                </div>
+            </div>`
+        };
+
+        document.getElementById('diagramArea').innerHTML = diagramHTML[data.diagram] || diagramHTML.cae;
+
+        requestAnimationFrame(() => document.body.classList.add('page-loaded'));
+    </script>
+</body>
+</html>
