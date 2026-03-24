@@ -58,7 +58,8 @@
             pointer-events: none;
         }
 
-        .fixed-hero-bg__image {
+        .fixed-hero-bg__image,
+        .fixed-hero-bg__video {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -90,12 +91,7 @@
             gap: 1rem;
             padding: 1.5rem max(4rem, env(safe-area-inset-right)) 1.5rem max(4rem, env(safe-area-inset-left));
             padding-top: max(1.5rem, env(safe-area-inset-top));
-            background: linear-gradient(
-                180deg,
-                rgba(13, 13, 13, 0.88) 0%,
-                rgba(13, 13, 13, 0.45) 55%,
-                rgba(13, 13, 13, 0.12) 100%
-            );
+            background: rgba(13, 13, 13, 0.92);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             transition: background 0.4s var(--ease-out-expo);
@@ -161,7 +157,7 @@
             z-index: 2;
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 1200px) {
             .header {
                 padding: 1rem max(1.25rem, env(safe-area-inset-right)) 1rem max(1.25rem, env(safe-area-inset-left));
                 padding-top: max(1rem, env(safe-area-inset-top));
@@ -263,10 +259,11 @@
             font-weight: 500;
             letter-spacing: 0.12em;
             text-transform: uppercase;
-            color: var(--light-muted);
+            color: rgba(245, 245, 240, 0.98);
             text-decoration: none;
             transition: color 0.3s ease;
             position: relative;
+            text-shadow: 0 1px 10px rgba(0, 0, 0, 0.55);
         }
 
         .nav__link::after {
@@ -1278,13 +1275,21 @@
     </style>
 </head>
 <body>
-    <!-- Fixed car image - stays stable while content scrolls -->
+    <!-- Fixed hero media - premium loop video -->
     <div class="fixed-hero-bg">
-        <img 
-            src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=1920&q=80" 
-            alt="Automotive design" 
-            class="fixed-hero-bg__image"
+        <!-- <video
+            class="fixed-hero-bg__video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            poster="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1920&q=85"
+            aria-label="Mechanical engineering production line video background"
         >
+            <source src="https://videos.pexels.com/video-files/7622764/7622764-uhd_2560_1440_25fps.mp4" type="video/mp4">
+        </video> -->/
+        <img src="img8.jpg" alt="landing page image" class="fixed-hero-bg__image">
         <div class="fixed-hero-bg__overlay"></div>
     </div>
 
@@ -1313,7 +1318,7 @@
         <div class="hero__content">
             <p class="hero__subtitle">Automotive Design & Engineering</p>
             <h1 class="hero__tagline">Shape the Future of Motion</h1>
-            <p class="hero__subtitle" style="letter-spacing: 0.2em; margin-bottom: 2rem;">For Volvo, Mustang & Industry Leaders</p>
+            <!-- <p class="hero__subtitle" style="letter-spacing: 0.2em; margin-bottom: 2rem;">For OEMs and engineering teams worldwide</p> -->
             <a href="#portfolio" class="hero__cta">View Our Work</a>
         </div>
     </section>
@@ -1342,7 +1347,7 @@
             <div class="portfolio-showcase" aria-label="Portfolio showcase">
                 <div class="portfolio-showcase__track">
                     <div class="portfolio-showcase__slide">
-                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1920&q=85" alt="Sedan BIW CAE model — engineering development">
+                        <img src="sedan.avif" alt="sedan biw cae model">
                         <div class="portfolio-showcase__overlay">
                             <span class="portfolio-showcase__label">CAE / CAD</span>
                             <span class="portfolio-showcase__name">Sedan BIW CAE Model</span>
@@ -1356,7 +1361,7 @@
                         </div>
                     </div>
                     <div class="portfolio-showcase__slide">
-                        <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=1920&q=85" alt="SUV structural FEA development">
+                        <img src="suv.avif" alt="SUV structural FEA development">
                         <div class="portfolio-showcase__overlay">
                             <span class="portfolio-showcase__label">Structural FEA</span>
                             <span class="portfolio-showcase__name">SUV Chassis &amp; Body FEA Model</span>
@@ -1370,7 +1375,7 @@
                         </div>
                     </div>
                     <div class="portfolio-showcase__slide">
-                        <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1920&q=85" alt="Automotive interior cabin architecture">
+                        <img src="interior1.webp" alt="Automotive interior cabin architecture">
                         <div class="portfolio-showcase__overlay">
                             <span class="portfolio-showcase__label">Interior CAE</span>
                             <span class="portfolio-showcase__name">Cabin Interior Architecture Model</span>
@@ -1385,7 +1390,7 @@
                     </div>
                     <!-- duplicate set for seamless loop -->
                     <div class="portfolio-showcase__slide">
-                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1920&q=85" alt="">
+                        <img src="sedan.avif" alt="sedan biw cae model">
                         <div class="portfolio-showcase__overlay">
                             <span class="portfolio-showcase__label">CAE / CAD</span>
                             <span class="portfolio-showcase__name">Sedan BIW CAE Model</span>
@@ -1399,7 +1404,7 @@
                         </div>
                     </div>
                     <div class="portfolio-showcase__slide">
-                        <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=1920&q=85" alt="">
+                        <img src="suv.jpg" alt="">
                         <div class="portfolio-showcase__overlay">
                             <span class="portfolio-showcase__label">Structural FEA</span>
                             <span class="portfolio-showcase__name">SUV Chassis &amp; Body FEA Model</span>
@@ -1413,7 +1418,7 @@
                         </div>
                     </div>
                     <div class="portfolio-showcase__slide">
-                        <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1920&q=85" alt="">
+                        <img src="interior1.webp" alt="">
                         <div class="portfolio-showcase__overlay">
                             <span class="portfolio-showcase__label">Interior CAE</span>
                             <span class="portfolio-showcase__name">Cabin Interior Architecture Model</span>
@@ -1490,7 +1495,7 @@
                         <p class="service-card__teaser">Dashboard, trim, instrumentation & cabin design</p>
                     </div>
                     <div class="service-card__image-wrap">
-                        <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=700&q=85" alt="Car interior cabin dashboard and trim" class="service-card__image">
+                        <img src="interior1.webp" alt="Automotive interior dashboard and cabin" class="service-card__image">
                     </div>
                     <div class="service-card__cta-wrap">
                         <span class="service-card__cta">Learn more</span>
@@ -1531,7 +1536,7 @@
                         <p class="service-card__teaser">Seat design, ergonomics & safety compliance</p>
                     </div>
                     <div class="service-card__image-wrap">
-                        <img src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=700&q=85" alt="Car seats inside vehicle interior" class="service-card__image">
+                        <img src="img9.avif" alt="Automotive seat design close-up" class="service-card__image">
                     </div>
                     <div class="service-card__cta-wrap">
                         <span class="service-card__cta">Learn more</span>
@@ -1598,7 +1603,7 @@
             <h2 class="section__title">About ABINI</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <p>ABINI is a premium automotive design and engineering consultancy. We partner with manufacturers like Volvo, Ford Mustang, and industry leaders to create complete vehicle designs—from exterior aesthetics to structural integrity.</p>
+                    <p>ABINI is a premium automotive design and engineering consultancy. We partner with automotive organizations and engineering teams to create complete vehicle designs—from exterior aesthetics to structural integrity.</p>
                     <p>Our team of designers and engineers brings decades of experience across luxury, performance, and electric vehicle segments. We deliver designs that balance form, function, and manufacturability.</p>
                 </div>
                 <div class="about-stats">
@@ -1789,7 +1794,7 @@
         (function () {
             const header = document.getElementById('siteHeader');
             const toggle = document.getElementById('navToggle');
-            const mq = window.matchMedia('(max-width: 900px)');
+            const mq = window.matchMedia('(max-width: 1200px)');
 
             function closeNav() {
                 header?.classList.remove('is-nav-open');
